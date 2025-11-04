@@ -1,5 +1,5 @@
-import HomeScreen from "./components/HomeScreen";
+import LoginPage from "./components/LoginPage.tsx";
 
 export default function Index() {
-  return <HomeScreen />;
+  return <LoginPage />;
 }
