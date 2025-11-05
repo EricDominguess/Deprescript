@@ -15,6 +15,11 @@ export const style = StyleSheet.create({
     height: 200,
     resizeMode: 'contain',
   },
+  logo_mini: {
+    width: 50, // Tamanho menor para o cabeçalho
+    height: 50,
+    resizeMode: 'contain',
+  },
   sub_titulo: {
     fontSize: 12.5,
     color: 'black',
