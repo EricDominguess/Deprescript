@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, Image, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { style as sharedStyles } from '../_styles/sharedStyles';
+import { style as sharedStyles } from '../../styles/sharedStyles';
 import { router } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Itens da barra de navegação definidos fora do componente para não serem recriados
 const navItems = ['Dashboard', 'Patients', 'Plans', 'Messages', 'Reports', 'Settings'];
@@ -58,6 +59,7 @@ export default function MenuPhysicianPage() {
             nativeID="nova_logo"
             source={require("../../assets/Deprescript_logo.png")}
             style={sharedStyles.logo_mini}
+            resizeMode="contain"
           />
           <View style={styles.rightHeaderGroup}>
             <TouchableOpacity onPress={() => router.push("/pages/PhysicianNotificationPage")}>

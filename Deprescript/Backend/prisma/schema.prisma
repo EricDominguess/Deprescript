@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  PATIENT
+  PHYSICIAN
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  password      String
+  userType      UserType
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  patient       Patient?
+  physician     Physician?
+
+  @@map("users")
+}
+
+model Patient {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String    @unique @db.ObjectId
+  fullName      String
+  dateOfBirth   DateTime?
+  phone         String?
+  address       String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prescriptions Prescription[]
+
+  @@map("patients")
+}
+
+model Physician {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String    @unique @db.ObjectId
+  fullName      String
+  crm           String    @unique
+  specialty     String?
+  phone         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prescriptions Prescription[]
+  notifications Notification[]
+
+  @@map("physicians")
+}
+
+model Prescription {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  patientId     String    @db.ObjectId
+  physicianId   String    @db.ObjectId
+  medication    String
+  dosage        String
+  frequency     String
+  startDate     DateTime
+  endDate       DateTime?
+  status        String    @default("ACTIVE")
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  patient       Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  physician     Physician @relation(fields: [physicianId], references: [id], onDelete: Cascade)
+
+  @@map("prescriptions")
+}
+
+model Notification {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  physicianId   String    @db.ObjectId
+  title         String
+  message       String
+  type          String    @default("INFO")
+  isRead        Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  
+  physician     Physician @relation(fields: [physicianId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+

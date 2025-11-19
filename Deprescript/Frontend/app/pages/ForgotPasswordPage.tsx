@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, Image, Animated } from 'react-native';
 import { Link, router } from 'expo-router';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { style } from '../_styles/sharedStyles';
+import { style } from '../../styles/sharedStyles';
 
 export default function ForgotPasswordPage() {
   const [isPhysician, setIsPhysician] = useState(false);
@@ -15,7 +15,7 @@ export default function ForgotPasswordPage() {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [slideAnimation] = useState(new Animated.Value(0));
 
-  const toggleUserType = (isPhysicianLogin) => {
+  const toggleUserType = (isPhysicianLogin: boolean) => {
     setIsPhysician(isPhysicianLogin);
     Animated.timing(slideAnimation, {
       toValue: isPhysicianLogin ? 1 : 0,
@@ -55,6 +55,7 @@ export default function ForgotPasswordPage() {
         <Image
           source={require("../../assets/Deprescript_logo.png")}
           style={style.logo}
+          resizeMode="contain"
         />
         <Text style={style.sub_titulo}>Deprescribing Excellence</Text>
 

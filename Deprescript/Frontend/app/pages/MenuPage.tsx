@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { style } from '../_styles/sharedStyles';
+import { style } from '../../styles/sharedStyles';
 
 export default function MenuPage() {
   return (

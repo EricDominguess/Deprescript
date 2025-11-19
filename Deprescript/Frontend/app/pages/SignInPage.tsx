@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, Image } from 'react-native';
 import { Link, router } from 'expo-router';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { style } from '../_styles/sharedStyles';
+import { style } from '../../styles/sharedStyles';
 
 export default function SignInPage() {
   const [fullName, setFullName] = useState('');
@@ -36,9 +36,11 @@ export default function SignInPage() {
       style={style.container}
     >
       <View style={style.innerContainer}>
-        <Image nativeID="nova_logo"
+        <Image 
+          nativeID="nova_logo"
           source={require("../../assets/Deprescript_logo.png")}
           style={style.logo}
+          resizeMode="contain"
         />
         <Text nativeID="sub_titulo" style={style.sub_titulo}>Deprescribing Excellence</Text>
 
